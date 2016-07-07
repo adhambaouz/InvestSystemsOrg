@@ -11,27 +11,43 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var platform_browser_1 = require('@angular/platform-browser');
 var router_1 = require('@angular/router');
+var button_1 = require('@angular2-material/button');
 var stock_service_1 = require('./stock.service');
 var StockDetailComponent = (function () {
-    function StockDetailComponent(companiesService, route, titleService) {
+    function StockDetailComponent(companiesService, route, router, titleService) {
         this.companiesService = companiesService;
         this.route = route;
+        this.router = router;
         this.titleService = titleService;
     }
     StockDetailComponent.prototype.ngOnInit = function () {
-        var id = this.route.snapshot.params['id'];
-        if (id) {
-            this.stock = this.companiesService.getCompany(id);
-        }
+        var _this = this;
+        this.routeParams = this.route.params.subscribe(function (params) {
+            var id = params['id'];
+            if (id) {
+                _this.stock = _this.companiesService.getCompany(id);
+                _this.stock.subscribe(function (stock) {
+                    _this.titleService.setTitle(stock.name);
+                });
+            }
+        });
+    };
+    StockDetailComponent.prototype.edit = function (stock) {
+        var _this = this;
+        stock.subscribe(function (stock) {
+            var link = ['/stock-exchanges', stock.id, 'edit']; // TODO: check if this is the right way to create link like that
+            _this.router.navigate(link);
+        });
     };
     StockDetailComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
             selector: 'stock-detail',
             templateUrl: 'stock-detail.component.html',
-            styleUrls: ['stock-detail.component.css']
+            styleUrls: ['stock-detail.component.css'],
+            directives: [router_1.ROUTER_DIRECTIVES, button_1.MD_BUTTON_DIRECTIVES]
         }), 
-        __metadata('design:paramtypes', [stock_service_1.StockService, router_1.ActivatedRoute, platform_browser_1.Title])
+        __metadata('design:paramtypes', [stock_service_1.StockService, router_1.ActivatedRoute, router_1.Router, platform_browser_1.Title])
     ], StockDetailComponent);
     return StockDetailComponent;
 }());
