@@ -14,11 +14,14 @@ var StockService = (function () {
     function StockService(af) {
         this.af = af;
     }
-    StockService.prototype.getCompanies = function () {
+    StockService.prototype.getStockExchanges = function () {
         return this.af.database.list('stock-exchanges');
     };
-    StockService.prototype.getCompany = function (symbol) {
+    StockService.prototype.getStockExchange = function (symbol) {
         return this.af.database.object("stock-exchanges/" + symbol);
+    };
+    StockService.prototype.updategetStockExchange = function (stockFirebaesObject, update) {
+        stockFirebaesObject.update(update);
     };
     StockService = __decorate([
         core_1.Injectable(), 
