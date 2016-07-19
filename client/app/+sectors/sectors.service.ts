@@ -11,6 +11,6 @@ export class SectorsService {
     constructor(private af: AngularFire) { }
 
     getSectors(): FirebaseListObservable<Sector[]> {
-        return this.af.database.list('sectors2') as FirebaseListObservable<Sector[]>;
+        return this.af.database.list('sectors') as FirebaseListObservable<Sector[]>;
     }
 }

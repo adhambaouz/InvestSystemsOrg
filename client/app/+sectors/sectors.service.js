@@ -15,7 +15,7 @@ var SectorsService = (function () {
         this.af = af;
     }
     SectorsService.prototype.getSectors = function () {
-        return this.af.database.list('sectors2');
+        return this.af.database.list('sectors');
     };
     SectorsService = __decorate([
         core_1.Injectable(), 
