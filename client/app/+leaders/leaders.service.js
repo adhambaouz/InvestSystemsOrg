@@ -19,7 +19,7 @@ var LeadersService = (function () {
     LeadersService.prototype.getLeaders = function () {
         var _this = this;
         this.spinnerService.show();
-        //return this.af.database.list('leaders').finally(() => {this.spinnerService.hide();});
+        // TODO: return this.af.database.list('leaders').finally(() => {this.spinnerService.hide();}); // why this does not work?
         var observable = this.af.database.list('leaders');
         observable.subscribe(function () { _this.spinnerService.hide(); });
         return observable;
