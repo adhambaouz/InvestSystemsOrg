@@ -21,11 +21,24 @@ namespace InvSys.Companies.State.EntityFramework.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasAnnotation("MaxLength", 100);
 
-                    b.Property<string>("Symbol");
+                    b.Property<string>("Symbol")
+                        .IsRequired()
+                        .HasAnnotation("MaxLength", 100);
+
+                    b.Property<byte[]>("Timestamp")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
 
                     b.HasKey("Id");
+
+                    b.HasAlternateKey("Symbol");
+
+                    b.HasIndex("Symbol")
+                        .IsUnique();
 
                     b.ToTable("Companies");
                 });
@@ -36,13 +49,19 @@ namespace InvSys.Companies.State.EntityFramework.Migrations
 
                     b.Property<string>("Culture");
 
-                    b.Property<string>("Description");
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasAnnotation("MaxLength", 3000);
+
+                    b.Property<byte[]>("Timestamp")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
 
                     b.HasKey("CompanyId", "Culture");
 
                     b.HasIndex("CompanyId");
 
-                    b.ToTable("CompanyTranslation");
+                    b.ToTable("CompanyTranslations");
                 });
 
             modelBuilder.Entity("InvSys.Companies.Core.Model.CompanyTranslation", b =>
