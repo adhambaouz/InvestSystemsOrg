@@ -1,0 +1,27 @@
+{
+  "version": "1.0.0-*",
+  "testRunner": "xunit",
+  "dependencies": {
+    "InvSys.Companies.Api": {
+      "target": "project"
+    },
+    "InvSys.Companies.Api.Client": {
+      "target": "project"
+    }
+  },
+  "frameworks": {
+    "netcoreapp1.0": {
+      "dependencies": {
+        "Microsoft.NETCore.App": {
+          "type": "platform",
+          "version": "1.0.0"
+        }
+      }
+    }
+  },
+  "buildOptions": {
+    "copyToOutput": {
+      "include": [ "xunit.runner.json", "testsettings.json" ]
+    }
+  }
+}
