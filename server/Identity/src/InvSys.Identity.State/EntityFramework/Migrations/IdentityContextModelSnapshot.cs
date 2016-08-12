@@ -16,57 +16,6 @@ namespace InvSys.Identity.State.EntityFramework.Migrations
                 .HasAnnotation("ProductVersion", "1.0.0-rtm-21431")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("InvSys.Identity.Core.Models.User", b =>
-                {
-                    b.Property<string>("Id");
-
-                    b.Property<int>("AccessFailedCount");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken();
-
-                    b.Property<string>("Email")
-                        .HasAnnotation("MaxLength", 256);
-
-                    b.Property<bool>("EmailConfirmed");
-
-                    b.Property<bool>("IsProfessionalInvestor");
-
-                    b.Property<bool>("LockoutEnabled");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasAnnotation("MaxLength", 256);
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasAnnotation("MaxLength", 256);
-
-                    b.Property<string>("PasswordHash");
-
-                    b.Property<string>("PhoneNumber");
-
-                    b.Property<bool>("PhoneNumberConfirmed");
-
-                    b.Property<string>("SecurityStamp");
-
-                    b.Property<bool>("TwoFactorEnabled");
-
-                    b.Property<string>("UserName")
-                        .HasAnnotation("MaxLength", 256);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasName("UserNameIndex");
-
-                    b.ToTable("AspNetUsers");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole", b =>
                 {
                     b.Property<string>("Id");
@@ -174,6 +123,144 @@ namespace InvSys.Identity.State.EntityFramework.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("OpenIddict.OpenIddictApplication", b =>
+                {
+                    b.Property<string>("Id");
+
+                    b.Property<string>("ClientId");
+
+                    b.Property<string>("ClientSecret");
+
+                    b.Property<string>("DisplayName");
+
+                    b.Property<string>("LogoutRedirectUri");
+
+                    b.Property<string>("RedirectUri");
+
+                    b.Property<string>("Type");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClientId")
+                        .IsUnique();
+
+                    b.ToTable("OpenIddictApplications");
+                });
+
+            modelBuilder.Entity("OpenIddict.OpenIddictAuthorization", b =>
+                {
+                    b.Property<string>("Id");
+
+                    b.Property<string>("Scope");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("OpenIddictAuthorizations");
+                });
+
+            modelBuilder.Entity("OpenIddict.OpenIddictScope", b =>
+                {
+                    b.Property<string>("Id");
+
+                    b.Property<string>("Description");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OpenIddictScopes");
+                });
+
+            modelBuilder.Entity("OpenIddict.OpenIddictToken", b =>
+                {
+                    b.Property<string>("Id");
+
+                    b.Property<string>("ApplicationId");
+
+                    b.Property<string>("AuthorizationId");
+
+                    b.Property<string>("Type");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationId");
+
+                    b.HasIndex("AuthorizationId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("OpenIddictTokens");
+                });
+
+            modelBuilder.Entity("OpenIddict.OpenIddictUser", b =>
+                {
+                    b.Property<string>("Id");
+
+                    b.Property<int>("AccessFailedCount");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken();
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired();
+
+                    b.Property<string>("Email")
+                        .HasAnnotation("MaxLength", 256);
+
+                    b.Property<bool>("EmailConfirmed");
+
+                    b.Property<bool>("LockoutEnabled");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasAnnotation("MaxLength", 256);
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasAnnotation("MaxLength", 256);
+
+                    b.Property<string>("PasswordHash");
+
+                    b.Property<string>("PhoneNumber");
+
+                    b.Property<bool>("PhoneNumberConfirmed");
+
+                    b.Property<string>("SecurityStamp");
+
+                    b.Property<bool>("TwoFactorEnabled");
+
+                    b.Property<string>("UserName")
+                        .HasAnnotation("MaxLength", 256);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasName("UserNameIndex");
+
+                    b.ToTable("AspNetUsers");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("OpenIddictUser");
+                });
+
+            modelBuilder.Entity("InvSys.Identity.Core.Models.User", b =>
+                {
+                    b.HasBaseType("OpenIddict.OpenIddictUser");
+
+                    b.Property<bool>("IsProfessionalInvestor");
+
+                    b.ToTable("User");
+
+                    b.HasDiscriminator().HasValue("User");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole")
@@ -184,7 +271,7 @@ namespace InvSys.Identity.State.EntityFramework.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("InvSys.Identity.Core.Models.User")
+                    b.HasOne("OpenIddict.OpenIddictUser")
                         .WithMany("Claims")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -192,7 +279,7 @@ namespace InvSys.Identity.State.EntityFramework.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("InvSys.Identity.Core.Models.User")
+                    b.HasOne("OpenIddict.OpenIddictUser")
                         .WithMany("Logins")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -205,10 +292,32 @@ namespace InvSys.Identity.State.EntityFramework.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("InvSys.Identity.Core.Models.User")
+                    b.HasOne("OpenIddict.OpenIddictUser")
                         .WithMany("Roles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("OpenIddict.OpenIddictAuthorization", b =>
+                {
+                    b.HasOne("OpenIddict.OpenIddictUser")
+                        .WithMany("Authorizations")
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("OpenIddict.OpenIddictToken", b =>
+                {
+                    b.HasOne("OpenIddict.OpenIddictApplication")
+                        .WithMany("Tokens")
+                        .HasForeignKey("ApplicationId");
+
+                    b.HasOne("OpenIddict.OpenIddictAuthorization")
+                        .WithMany("Tokens")
+                        .HasForeignKey("AuthorizationId");
+
+                    b.HasOne("OpenIddict.OpenIddictUser")
+                        .WithMany("Tokens")
+                        .HasForeignKey("UserId");
                 });
         }
     }
