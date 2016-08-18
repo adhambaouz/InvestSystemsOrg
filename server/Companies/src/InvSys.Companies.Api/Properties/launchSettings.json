@@ -19,7 +19,7 @@
     "InvSys.Companies.Api": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "http://localhost:5000/api/values",
+      "launchUrl": "http://localhost:5001/api/companies",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
