@@ -7,6 +7,8 @@ To make it work (send emails) configuration of environment variables is necessar
 
 ### Technologies
 
+* RazorEngine
+* MailKit
 * ASP.NET Core
 * Entity Framework Core
 * Swashbuckle
