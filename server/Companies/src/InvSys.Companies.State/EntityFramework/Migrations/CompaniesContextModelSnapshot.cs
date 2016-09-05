@@ -25,6 +25,8 @@ namespace InvSys.Companies.State.EntityFramework.Migrations
 
                     b.Property<string>("Exchange");
 
+                    b.Property<string>("Fax");
+
                     b.Property<Guid?>("IndustryId");
 
                     b.Property<int?>("LogoId");
@@ -96,7 +98,6 @@ namespace InvSys.Companies.State.EntityFramework.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Source")
-                        .IsRequired()
                         .HasAnnotation("MaxLength", 300);
 
                     b.Property<byte[]>("Timestamp")
@@ -115,7 +116,6 @@ namespace InvSys.Companies.State.EntityFramework.Migrations
                     b.Property<string>("Culture");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasAnnotation("MaxLength", 3000);
 
                     b.Property<string>("Name");
@@ -157,7 +157,6 @@ namespace InvSys.Companies.State.EntityFramework.Migrations
                     b.Property<Guid>("IndustryId");
 
                     b.Property<string>("Source")
-                        .IsRequired()
                         .HasAnnotation("MaxLength", 300);
 
                     b.Property<byte[]>("Timestamp")
@@ -178,7 +177,6 @@ namespace InvSys.Companies.State.EntityFramework.Migrations
                     b.Property<string>("Culture");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasAnnotation("MaxLength", 3000);
 
                     b.Property<string>("Name");
@@ -202,7 +200,6 @@ namespace InvSys.Companies.State.EntityFramework.Migrations
                     b.Property<Guid>("SectorId");
 
                     b.Property<string>("Source")
-                        .IsRequired()
                         .HasAnnotation("MaxLength", 300);
 
                     b.Property<byte[]>("Timestamp")
@@ -223,7 +220,6 @@ namespace InvSys.Companies.State.EntityFramework.Migrations
                     b.Property<string>("Culture");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasAnnotation("MaxLength", 3000);
 
                     b.Property<string>("Name");
