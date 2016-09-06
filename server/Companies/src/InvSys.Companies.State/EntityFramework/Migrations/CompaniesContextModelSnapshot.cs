@@ -51,8 +51,6 @@ namespace InvSys.Companies.State.EntityFramework.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasAlternateKey("Symbol");
-
                     b.HasIndex("IndustryId");
 
                     b.HasIndex("LogoId");
@@ -60,9 +58,6 @@ namespace InvSys.Companies.State.EntityFramework.Migrations
                     b.HasIndex("SectorId");
 
                     b.HasIndex("SubsectorId");
-
-                    b.HasIndex("Symbol")
-                        .IsUnique();
 
                     b.ToTable("Companies");
                 });
@@ -76,7 +71,6 @@ namespace InvSys.Companies.State.EntityFramework.Migrations
                     b.Property<string>("Address");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasAnnotation("MaxLength", 3000);
 
                     b.Property<byte[]>("Timestamp")
@@ -100,11 +94,15 @@ namespace InvSys.Companies.State.EntityFramework.Migrations
                     b.Property<string>("Source")
                         .HasAnnotation("MaxLength", 300);
 
+                    b.Property<Guid>("SubsectorId");
+
                     b.Property<byte[]>("Timestamp")
                         .IsConcurrencyToken()
                         .ValueGeneratedOnAddOrUpdate();
 
                     b.HasKey("Id");
+
+                    b.HasIndex("SubsectorId");
 
                     b.ToTable("Industries");
                 });
@@ -154,8 +152,6 @@ namespace InvSys.Companies.State.EntityFramework.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid>("IndustryId");
-
                     b.Property<string>("Source")
                         .HasAnnotation("MaxLength", 300);
 
@@ -164,8 +160,6 @@ namespace InvSys.Companies.State.EntityFramework.Migrations
                         .ValueGeneratedOnAddOrUpdate();
 
                     b.HasKey("Id");
-
-                    b.HasIndex("IndustryId");
 
                     b.ToTable("Sectors");
                 });
@@ -262,18 +256,18 @@ namespace InvSys.Companies.State.EntityFramework.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("InvSys.Companies.Core.Models.Industry", b =>
+                {
+                    b.HasOne("InvSys.Companies.Core.Models.Subsector", "Subsector")
+                        .WithMany("Industries")
+                        .HasForeignKey("SubsectorId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("InvSys.Companies.Core.Models.IndustryTranslation", b =>
                 {
                     b.HasOne("InvSys.Companies.Core.Models.Industry", "Industry")
                         .WithMany("Translations")
-                        .HasForeignKey("IndustryId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("InvSys.Companies.Core.Models.Sector", b =>
-                {
-                    b.HasOne("InvSys.Companies.Core.Models.Industry", "Industry")
-                        .WithMany("Sectors")
                         .HasForeignKey("IndustryId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
