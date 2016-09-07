@@ -21,15 +21,21 @@ namespace InvSys.Companies.State.EntityFramework.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("Country");
+
                     b.Property<string>("Email");
 
                     b.Property<string>("Exchange");
 
                     b.Property<string>("Fax");
 
+                    b.Property<DateTime?>("IPODate");
+
                     b.Property<Guid?>("IndustryId");
 
                     b.Property<int?>("LogoId");
+
+                    b.Property<string>("MarketValue");
 
                     b.Property<string>("Name")
                         .IsRequired()
