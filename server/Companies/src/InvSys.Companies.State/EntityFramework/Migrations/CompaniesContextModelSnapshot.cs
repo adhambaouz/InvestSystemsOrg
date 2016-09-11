@@ -33,7 +33,7 @@ namespace InvSys.Companies.State.EntityFramework.Migrations
 
                     b.Property<Guid?>("IndustryId");
 
-                    b.Property<int?>("LogoId");
+                    b.Property<string>("Logo");
 
                     b.Property<string>("MarketValue");
 
@@ -58,8 +58,6 @@ namespace InvSys.Companies.State.EntityFramework.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("IndustryId");
-
-                    b.HasIndex("LogoId");
 
                     b.HasIndex("SectorId");
 
@@ -135,22 +133,22 @@ namespace InvSys.Companies.State.EntityFramework.Migrations
                     b.ToTable("IndustryTranslations");
                 });
 
-            modelBuilder.Entity("InvSys.Companies.Core.Models.Logo", b =>
+            modelBuilder.Entity("InvSys.Companies.Core.Models.Officer", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Default");
+                    b.Property<Guid?>("CompanyId");
 
-                    b.Property<string>("Logomark");
+                    b.Property<string>("Name");
 
-                    b.Property<string>("Logotype");
-
-                    b.Property<string>("Square");
+                    b.Property<int>("Type");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Logo");
+                    b.HasIndex("CompanyId");
+
+                    b.ToTable("Officer");
                 });
 
             modelBuilder.Entity("InvSys.Companies.Core.Models.Sector", b =>
@@ -235,15 +233,29 @@ namespace InvSys.Companies.State.EntityFramework.Migrations
                     b.ToTable("SubsectorTranslations");
                 });
 
+            modelBuilder.Entity("InvSys.Companies.Core.Models.Website", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<Guid?>("CompanyId");
+
+                    b.Property<int>("Type");
+
+                    b.Property<string>("Url");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
+
+                    b.ToTable("Website");
+                });
+
             modelBuilder.Entity("InvSys.Companies.Core.Models.Company", b =>
                 {
                     b.HasOne("InvSys.Companies.Core.Models.Industry", "Industry")
                         .WithMany()
                         .HasForeignKey("IndustryId");
-
-                    b.HasOne("InvSys.Companies.Core.Models.Logo", "Logo")
-                        .WithMany()
-                        .HasForeignKey("LogoId");
 
                     b.HasOne("InvSys.Companies.Core.Models.Sector", "Sector")
                         .WithMany()
@@ -278,6 +290,13 @@ namespace InvSys.Companies.State.EntityFramework.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("InvSys.Companies.Core.Models.Officer", b =>
+                {
+                    b.HasOne("InvSys.Companies.Core.Models.Company")
+                        .WithMany("Officers")
+                        .HasForeignKey("CompanyId");
+                });
+
             modelBuilder.Entity("InvSys.Companies.Core.Models.SectorTranslation", b =>
                 {
                     b.HasOne("InvSys.Companies.Core.Models.Sector", "Sector")
@@ -300,6 +319,13 @@ namespace InvSys.Companies.State.EntityFramework.Migrations
                         .WithMany("Translations")
                         .HasForeignKey("SubsectorId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("InvSys.Companies.Core.Models.Website", b =>
+                {
+                    b.HasOne("InvSys.Companies.Core.Models.Company")
+                        .WithMany("Websites")
+                        .HasForeignKey("CompanyId");
                 });
         }
     }
