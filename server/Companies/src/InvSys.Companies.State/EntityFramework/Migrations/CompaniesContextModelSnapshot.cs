@@ -31,8 +31,6 @@ namespace InvSys.Companies.State.EntityFramework.Migrations
 
                     b.Property<DateTime?>("IPODate");
 
-                    b.Property<Guid?>("IndustryId");
-
                     b.Property<string>("Logo");
 
                     b.Property<string>("MarketValue");
@@ -43,10 +41,6 @@ namespace InvSys.Companies.State.EntityFramework.Migrations
 
                     b.Property<string>("Phone");
 
-                    b.Property<Guid?>("SectorId");
-
-                    b.Property<Guid?>("SubsectorId");
-
                     b.Property<string>("Symbol")
                         .IsRequired()
                         .HasAnnotation("MaxLength", 100);
@@ -56,12 +50,6 @@ namespace InvSys.Companies.State.EntityFramework.Migrations
                         .ValueGeneratedOnAddOrUpdate();
 
                     b.HasKey("Id");
-
-                    b.HasIndex("IndustryId");
-
-                    b.HasIndex("SectorId");
-
-                    b.HasIndex("SubsectorId");
 
                     b.ToTable("Companies");
                 });
@@ -77,6 +65,12 @@ namespace InvSys.Companies.State.EntityFramework.Migrations
                     b.Property<string>("Description")
                         .HasAnnotation("MaxLength", 3000);
 
+                    b.Property<string>("Industry");
+
+                    b.Property<string>("Sector");
+
+                    b.Property<string>("Subsector");
+
                     b.Property<byte[]>("Timestamp")
                         .IsConcurrencyToken()
                         .ValueGeneratedOnAddOrUpdate();
@@ -88,49 +82,6 @@ namespace InvSys.Companies.State.EntityFramework.Migrations
                     b.HasIndex("CompanyId");
 
                     b.ToTable("CompanyTranslations");
-                });
-
-            modelBuilder.Entity("InvSys.Companies.Core.Models.Industry", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Source")
-                        .HasAnnotation("MaxLength", 300);
-
-                    b.Property<Guid>("SubsectorId");
-
-                    b.Property<byte[]>("Timestamp")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SubsectorId");
-
-                    b.ToTable("Industries");
-                });
-
-            modelBuilder.Entity("InvSys.Companies.Core.Models.IndustryTranslation", b =>
-                {
-                    b.Property<Guid>("IndustryId");
-
-                    b.Property<string>("Culture");
-
-                    b.Property<string>("Description")
-                        .HasAnnotation("MaxLength", 3000);
-
-                    b.Property<string>("Name");
-
-                    b.Property<byte[]>("Timestamp")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
-
-                    b.HasKey("IndustryId", "Culture");
-
-                    b.HasIndex("IndustryId");
-
-                    b.ToTable("IndustryTranslations");
                 });
 
             modelBuilder.Entity("InvSys.Companies.Core.Models.Officer", b =>
@@ -151,88 +102,6 @@ namespace InvSys.Companies.State.EntityFramework.Migrations
                     b.ToTable("Officer");
                 });
 
-            modelBuilder.Entity("InvSys.Companies.Core.Models.Sector", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Source")
-                        .HasAnnotation("MaxLength", 300);
-
-                    b.Property<byte[]>("Timestamp")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Sectors");
-                });
-
-            modelBuilder.Entity("InvSys.Companies.Core.Models.SectorTranslation", b =>
-                {
-                    b.Property<Guid>("SectorId");
-
-                    b.Property<string>("Culture");
-
-                    b.Property<string>("Description")
-                        .HasAnnotation("MaxLength", 3000);
-
-                    b.Property<string>("Name");
-
-                    b.Property<byte[]>("Timestamp")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
-
-                    b.HasKey("SectorId", "Culture");
-
-                    b.HasIndex("SectorId");
-
-                    b.ToTable("SectorTranslations");
-                });
-
-            modelBuilder.Entity("InvSys.Companies.Core.Models.Subsector", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<Guid>("SectorId");
-
-                    b.Property<string>("Source")
-                        .HasAnnotation("MaxLength", 300);
-
-                    b.Property<byte[]>("Timestamp")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SectorId");
-
-                    b.ToTable("Subsectors");
-                });
-
-            modelBuilder.Entity("InvSys.Companies.Core.Models.SubsectorTranslation", b =>
-                {
-                    b.Property<Guid>("SubsectorId");
-
-                    b.Property<string>("Culture");
-
-                    b.Property<string>("Description")
-                        .HasAnnotation("MaxLength", 3000);
-
-                    b.Property<string>("Name");
-
-                    b.Property<byte[]>("Timestamp")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
-
-                    b.HasKey("SubsectorId", "Culture");
-
-                    b.HasIndex("SubsectorId");
-
-                    b.ToTable("SubsectorTranslations");
-                });
-
             modelBuilder.Entity("InvSys.Companies.Core.Models.Website", b =>
                 {
                     b.Property<int>("Id")
@@ -251,21 +120,6 @@ namespace InvSys.Companies.State.EntityFramework.Migrations
                     b.ToTable("Website");
                 });
 
-            modelBuilder.Entity("InvSys.Companies.Core.Models.Company", b =>
-                {
-                    b.HasOne("InvSys.Companies.Core.Models.Industry", "Industry")
-                        .WithMany()
-                        .HasForeignKey("IndustryId");
-
-                    b.HasOne("InvSys.Companies.Core.Models.Sector", "Sector")
-                        .WithMany()
-                        .HasForeignKey("SectorId");
-
-                    b.HasOne("InvSys.Companies.Core.Models.Subsector", "Subsector")
-                        .WithMany()
-                        .HasForeignKey("SubsectorId");
-                });
-
             modelBuilder.Entity("InvSys.Companies.Core.Models.CompanyTranslation", b =>
                 {
                     b.HasOne("InvSys.Companies.Core.Models.Company", "Company")
@@ -274,51 +128,11 @@ namespace InvSys.Companies.State.EntityFramework.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("InvSys.Companies.Core.Models.Industry", b =>
-                {
-                    b.HasOne("InvSys.Companies.Core.Models.Subsector", "Subsector")
-                        .WithMany("Industries")
-                        .HasForeignKey("SubsectorId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("InvSys.Companies.Core.Models.IndustryTranslation", b =>
-                {
-                    b.HasOne("InvSys.Companies.Core.Models.Industry", "Industry")
-                        .WithMany("Translations")
-                        .HasForeignKey("IndustryId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("InvSys.Companies.Core.Models.Officer", b =>
                 {
                     b.HasOne("InvSys.Companies.Core.Models.Company")
                         .WithMany("Officers")
                         .HasForeignKey("CompanyId");
-                });
-
-            modelBuilder.Entity("InvSys.Companies.Core.Models.SectorTranslation", b =>
-                {
-                    b.HasOne("InvSys.Companies.Core.Models.Sector", "Sector")
-                        .WithMany("Translations")
-                        .HasForeignKey("SectorId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("InvSys.Companies.Core.Models.Subsector", b =>
-                {
-                    b.HasOne("InvSys.Companies.Core.Models.Sector", "Sector")
-                        .WithMany("Subsectors")
-                        .HasForeignKey("SectorId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("InvSys.Companies.Core.Models.SubsectorTranslation", b =>
-                {
-                    b.HasOne("InvSys.Companies.Core.Models.Subsector", "Subsector")
-                        .WithMany("Translations")
-                        .HasForeignKey("SubsectorId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("InvSys.Companies.Core.Models.Website", b =>
