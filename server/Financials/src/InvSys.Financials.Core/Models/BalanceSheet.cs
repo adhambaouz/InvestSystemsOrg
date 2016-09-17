@@ -11,9 +11,7 @@ namespace InvSys.Financials.Core.Models
         public string CompanySymbol { get; set; }
         public DateTime Year { get; set; }
 
-        public decimal Equity { get; set; } // Book Value per Share
+        public decimal Equity { get; set; } // Book value or Net worth
         public decimal Debt { get; set; }
-
-        //public double ROIC { get; set; } // Return on Capital // TODO: where?
     }
 }
