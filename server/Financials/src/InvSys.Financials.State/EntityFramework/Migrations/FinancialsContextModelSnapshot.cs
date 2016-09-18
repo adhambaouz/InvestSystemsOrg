@@ -21,23 +21,23 @@ namespace InvSys.Financials.State.EntityFramework.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<decimal>("Cash");
+                    b.Property<decimal?>("Cash");
 
                     b.Property<string>("CompanySymbol");
 
                     b.Property<string>("Currency");
 
-                    b.Property<decimal>("Debt");
+                    b.Property<decimal?>("Debt");
 
-                    b.Property<decimal>("Dividends");
+                    b.Property<decimal?>("Dividends");
 
-                    b.Property<double>("EPS");
+                    b.Property<double?>("EPS");
 
-                    b.Property<decimal>("Equity");
+                    b.Property<decimal?>("Equity");
 
-                    b.Property<double>("ROIC");
+                    b.Property<double?>("ROIC");
 
-                    b.Property<decimal>("Revenue");
+                    b.Property<decimal?>("Revenue");
 
                     b.Property<int>("Year");
 
