@@ -16,82 +16,34 @@ namespace InvSys.Financials.State.EntityFramework.Migrations
                 .HasAnnotation("ProductVersion", "1.0.0-rtm-21431")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("InvSys.Financials.Core.Models.BalanceSheet", b =>
+            modelBuilder.Entity("InvSys.Financials.Core.Models.FinancialData", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid>("CompanyId");
+                    b.Property<decimal>("Cash");
 
                     b.Property<string>("CompanySymbol");
+
+                    b.Property<string>("Currency");
 
                     b.Property<decimal>("Debt");
 
-                    b.Property<decimal>("Equity");
-
-                    b.Property<DateTime>("Year");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("BalanceSheets");
-                });
-
-            modelBuilder.Entity("InvSys.Financials.Core.Models.CashFlow", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<Guid>("CompanyId");
-
-                    b.Property<string>("CompanySymbol");
-
                     b.Property<decimal>("Dividends");
-
-                    b.Property<decimal>("FreeCashFlow");
-
-                    b.Property<DateTime>("Year");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("CashFlows");
-                });
-
-            modelBuilder.Entity("InvSys.Financials.Core.Models.IncomeStatement", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<Guid>("CompanyId");
-
-                    b.Property<string>("CompanySymbol");
 
                     b.Property<double>("EPS");
 
+                    b.Property<decimal>("Equity");
+
+                    b.Property<double>("ROIC");
+
                     b.Property<decimal>("Revenue");
 
-                    b.Property<DateTime>("Year");
+                    b.Property<int>("Year");
 
                     b.HasKey("Id");
 
-                    b.ToTable("IncomeStatements");
-                });
-
-            modelBuilder.Entity("InvSys.Financials.Core.Models.RatioCalculation", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<Guid>("CompanyId");
-
-                    b.Property<string>("CompanySymbol");
-
-                    b.Property<double>("ReturnOnCapital");
-
-                    b.Property<DateTime>("Year");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("RatioCalculations");
+                    b.ToTable("Data");
                 });
         }
     }
