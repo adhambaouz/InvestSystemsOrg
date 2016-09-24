@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections;
 using System.Threading.Tasks;
-using AutoMapper;
-using InvSys.Companies.Api.Client.Proxy.Models;
 using InvSys.Gateway.Core.Models;
 using InvSys.Gateway.Core.Services;
-using InvSys.Shared.Core.Model;
-using InvSys.Watchlists.Api.Client.Proxy.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
