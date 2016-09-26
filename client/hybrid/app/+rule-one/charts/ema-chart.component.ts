@@ -12,7 +12,7 @@ declare var google: any;
 export class EmaChartComponent implements OnInit, OnChanges {
     @Input() title: string;
     @Input() data: EMAData[];
-    chartsLoaded: boolean = false;
+    //chartsLoaded: boolean = false;
 
     constructor(/*private chartsService: ChartsService*/) {
         this.data = [];
