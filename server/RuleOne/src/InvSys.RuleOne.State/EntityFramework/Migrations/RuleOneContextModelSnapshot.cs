@@ -16,6 +16,46 @@ namespace InvSys.RuleOne.State.EntityFramework.Migrations
                 .HasAnnotation("ProductVersion", "1.0.0-rtm-21431")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("InvSys.RuleOne.Core.Models.Management.Leader", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Avatar");
+
+                    b.Property<string>("CompanySymbol");
+
+                    b.Property<bool>("IsLevelFiveLeader");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("Position");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Leaders");
+                });
+
+            modelBuilder.Entity("InvSys.RuleOne.Core.Models.Management.LeadershipExample", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Content");
+
+                    b.Property<bool>("IsPositive");
+
+                    b.Property<Guid?>("LeaderId");
+
+                    b.Property<string>("Reference");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LeaderId");
+
+                    b.ToTable("LeadershipExample");
+                });
+
             modelBuilder.Entity("InvSys.RuleOne.Core.Models.Moat", b =>
                 {
                     b.Property<Guid>("Id")
@@ -138,6 +178,13 @@ namespace InvSys.RuleOne.State.EntityFramework.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Stochastic");
+                });
+
+            modelBuilder.Entity("InvSys.RuleOne.Core.Models.Management.LeadershipExample", b =>
+                {
+                    b.HasOne("InvSys.RuleOne.Core.Models.Management.Leader")
+                        .WithMany("LeadershipExamples")
+                        .HasForeignKey("LeaderId");
                 });
         }
     }
