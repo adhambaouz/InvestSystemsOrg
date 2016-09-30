@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using AutoMapper;
 using InvSys.RuleOne.Core.Models;
 using InvSys.RuleOne.Core.Services;
-using InvSys.Shared.Core.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
@@ -19,11 +16,11 @@ namespace InvSys.RuleOne.Api.Controllers
     public class MoatsController : Controller
     {
         private readonly IRuleOneService _ruleOneService;
-        private readonly ILogger<RatingsController> _logger;
+        private readonly ILogger<MoatsController> _logger;
         //private readonly IMapper _mapper;
-        private readonly IStringLocalizer<RatingsController> _localizer;
+        private readonly IStringLocalizer<MoatsController> _localizer;
 
-        public MoatsController(IRuleOneService ruleOneService, ILogger<RatingsController> logger, /*IMapper mapper,*/ IStringLocalizer<RatingsController> localizer)
+        public MoatsController(IRuleOneService ruleOneService, ILogger<MoatsController> logger, /*IMapper mapper,*/ IStringLocalizer<MoatsController> localizer)
         {
             _ruleOneService = ruleOneService;
             _logger = logger;

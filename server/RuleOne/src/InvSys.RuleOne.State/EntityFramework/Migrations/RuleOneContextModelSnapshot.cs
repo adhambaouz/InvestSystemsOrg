@@ -56,6 +56,30 @@ namespace InvSys.RuleOne.State.EntityFramework.Migrations
                     b.ToTable("LeadershipExample");
                 });
 
+            modelBuilder.Entity("InvSys.RuleOne.Core.Models.Meaning", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("CompanySymbol");
+
+                    b.Property<bool>("Money");
+
+                    b.Property<bool>("Passion");
+
+                    b.Property<bool>("Talent");
+
+                    b.Property<bool>("Understand");
+
+                    b.Property<Guid>("UserId");
+
+                    b.Property<bool>("Whole");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Meanings");
+                });
+
             modelBuilder.Entity("InvSys.RuleOne.Core.Models.Moat", b =>
                 {
                     b.Property<Guid>("Id")
