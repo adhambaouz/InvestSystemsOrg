@@ -80,7 +80,7 @@ namespace InvSys.RuleOne.State.EntityFramework.Migrations
                     b.ToTable("Meanings");
                 });
 
-            modelBuilder.Entity("InvSys.RuleOne.Core.Models.Moat", b =>
+            modelBuilder.Entity("InvSys.RuleOne.Core.Models.Moats.FiveMoats", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -99,7 +99,7 @@ namespace InvSys.RuleOne.State.EntityFramework.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Moats");
+                    b.ToTable("FiveMoats");
                 });
 
             modelBuilder.Entity("InvSys.RuleOne.Core.Models.Rating", b =>
